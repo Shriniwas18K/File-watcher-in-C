@@ -969,7 +969,265 @@
     <text x="710" y="740" text-anchor="middle" fill="#ff6b6b" font-family="Arial, sans-serif" font-size="11" font-weight="bold">continue</text>
     <text x="710" y="750" text-anchor="middle" fill="#ffffff" font-family="Arial, sans-serif" font-size="9">Re-register</text>
   </g>
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="1200" height="800" fill="#f8f9fa"/>
   
+  <!-- Title -->
+  <text x="600" y="40" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#2c3e50">
+    RolexHound File Monitor - Technical Architecture
+  </text>
+  
+  <!-- Main Container -->
+  <rect x="50" y="80" width="1100" height="680" fill="white" stroke="#e1e8ed" stroke-width="2" rx="10"/>
+  
+  <!-- System Architecture Section -->
+  <text x="100" y="120" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#34495e">
+    System Architecture
+  </text>
+  
+  <!-- Input Section -->
+  <rect x="100" y="140" width="200" height="120" fill="#3498db" stroke="#2980b9" stroke-width="2" rx="8"/>
+  <text x="200" y="165" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">
+    Command Line Input
+  </text>
+  <text x="200" y="185" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
+    argv[1]: File Path
+  </text>
+  <text x="200" y="205" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
+    Path Parsing
+  </text>
+  <text x="200" y="225" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
+    Extract Base Filename
+  </text>
+  <text x="200" y="245" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
+    using strtok("/")
+  </text>
+  
+  <!-- Core Server Loop -->
+  <rect x="350" y="140" width="200" height="120" fill="#e74c3c" stroke="#c0392b" stroke-width="2" rx="8"/>
+  <text x="450" y="165" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">
+    Server Main Loop
+  </text>
+  <text x="450" y="185" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
+    while(true)
+  </text>
+  <text x="450" y="205" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
+    Monitor File Changes
+  </text>
+  <text x="450" y="225" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
+    10 Second Intervals
+  </text>
+  <text x="450" y="245" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
+    sleep(10)
+  </text>
+  
+  <!-- Windows API Section -->
+  <rect x="600" y="140" width="200" height="120" fill="#9b59b6" stroke="#8e44ad" stroke-width="2" rx="8"/>
+  <text x="700" y="165" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">
+    Windows API
+  </text>
+  <text x="700" y="185" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
+    FindFirstFile()
+  </text>
+  <text x="700" y="205" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
+    WIN32_FIND_DATA
+  </text>
+  <text x="700" y="225" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
+    File Attributes
+  </text>
+  <text x="700" y="245" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
+    FILETIME Structs
+  </text>
+  
+  <!-- Signal Handler -->
+  <rect x="850" y="140" width="200" height="120" fill="#f39c12" stroke="#e67e22" stroke-width="2" rx="8"/>
+  <text x="950" y="165" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">
+    Signal Handler
+  </text>
+  <text x="950" y="185" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
+    SIGINT (Ctrl+C)
+  </text>
+  <text x="950" y="205" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
+    Graceful Shutdown
+  </text>
+  <text x="950" y="225" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
+    User Confirmation
+  </text>
+  <text x="950" y="245" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
+    Process ID Display
+  </text>
+  
+  <!-- Arrows between components -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#34495e"/>
+    </marker>
+  </defs>
+  
+  <line x1="300" y1="200" x2="350" y2="200" stroke="#34495e" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <line x1="550" y1="200" x2="600" y2="200" stroke="#34495e" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <line x1="450" y1="140" x2="950" y2="140" stroke="#34495e" stroke-width="2" stroke-dasharray="5,5"/>
+  
+  <!-- Workflow Diagram -->
+  <text x="100" y="320" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#34495e">
+    File Monitoring Workflow
+  </text>
+  
+  <!-- Workflow Steps -->
+  <rect x="100" y="350" width="150" height="80" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="2" rx="8"/>
+  <text x="175" y="375" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold">
+    1. File Search
+  </text>
+  <text x="175" y="395" text-anchor="middle" font-family="Arial, sans-serif" font-size="11">
+    FindFirstFile()
+  </text>
+  <text x="175" y="410" text-anchor="middle" font-family="Arial, sans-serif" font-size="11">
+    Check if file exists
+  </text>
+  <text x="175" y="425" text-anchor="middle" font-family="Arial, sans-serif" font-size="11">
+    INVALID_HANDLE_VALUE
+  </text>
+  
+  <rect x="300" y="350" width="150" height="80" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="2" rx="8"/>
+  <text x="375" y="375" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold">
+    2. Get Attributes
+  </text>
+  <text x="375" y="395" text-anchor="middle" font-family="Arial, sans-serif" font-size="11">
+    Extract FILETIME
+  </text>
+  <text x="375" y="410" text-anchor="middle" font-family="Arial, sans-serif" font-size="11">
+    LastAccessTime
+  </text>
+  <text x="375" y="425" text-anchor="middle" font-family="Arial, sans-serif" font-size="11">
+    LastWriteTime
+  </text>
+  
+  <rect x="500" y="350" width="150" height="80" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="2" rx="8"/>
+  <text x="575" y="375" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold">
+    3. Compare Times
+  </text>
+  <text x="575" y="395" text-anchor="middle" font-family="Arial, sans-serif" font-size="11">
+    dwLowDateTime
+  </text>
+  <text x="575" y="410" text-anchor="middle" font-family="Arial, sans-serif" font-size="11">
+    dwHighDateTime
+  </text>
+  <text x="575" y="425" text-anchor="middle" font-family="Arial, sans-serif" font-size="11">
+    Detect Changes
+  </text>
+  
+  <rect x="700" y="350" width="150" height="80" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="2" rx="8"/>
+  <text x="775" y="375" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold">
+    4. Log Changes
+  </text>
+  <text x="775" y="395" text-anchor="middle" font-family="Arial, sans-serif" font-size="11">
+    Print to Console
+  </text>
+  <text x="775" y="410" text-anchor="middle" font-family="Arial, sans-serif" font-size="11">
+    Update Old Times
+  </text>
+  <text x="775" y="425" text-anchor="middle" font-family="Arial, sans-serif" font-size="11">
+    Continue Loop
+  </text>
+  
+  <rect x="900" y="350" width="150" height="80" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="2" rx="8"/>
+  <text x="975" y="375" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold">
+    5. Wait & Repeat
+  </text>
+  <text x="975" y="395" text-anchor="middle" font-family="Arial, sans-serif" font-size="11">
+    sleep(10 seconds)
+  </text>
+  <text x="975" y="410" text-anchor="middle" font-family="Arial, sans-serif" font-size="11">
+    Loop back to step 1
+  </text>
+  <text x="975" y="425" text-anchor="middle" font-family="Arial, sans-serif" font-size="11">
+    Continuous monitoring
+  </text>
+  
+  <!-- Workflow arrows -->
+  <line x1="250" y1="390" x2="300" y2="390" stroke="#34495e" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <line x1="450" y1="390" x2="500" y2="390" stroke="#34495e" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <line x1="650" y1="390" x2="700" y2="390" stroke="#34495e" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <line x1="850" y1="390" x2="900" y2="390" stroke="#34495e" stroke-width="2" marker-end="url(#arrowhead)"/>
+  
+  <!-- Loop back arrow -->
+  <path d="M 975 430 Q 975 480 175 480 Q 175 450 175 430" fill="none" stroke="#e74c3c" stroke-width="2" marker-end="url(#arrowhead)" stroke-dasharray="5,5"/>
+  
+  <!-- Data Structures Section -->
+  <text x="100" y="530" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#34495e">
+    Key Data Structures
+  </text>
+  
+  <!-- WIN32_FIND_DATA -->
+  <rect x="100" y="550" width="250" height="140" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="2" rx="8"/>
+  <text x="225" y="575" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold">
+    WIN32_FIND_DATA FileData
+  </text>
+  <text x="120" y="595" font-family="Arial, sans-serif" font-size="11">
+    • dwFileAttributes (DWORD)
+  </text>
+  <text x="120" y="615" font-family="Arial, sans-serif" font-size="11">
+    • ftCreationTime (FILETIME)
+  </text>
+  <text x="120" y="635" font-family="Arial, sans-serif" font-size="11">
+    • ftLastAccessTime (FILETIME)
+  </text>
+  <text x="120" y="655" font-family="Arial, sans-serif" font-size="11">
+    • ftLastWriteTime (FILETIME)
+  </text>
+  <text x="120" y="675" font-family="Arial, sans-serif" font-size="11">
+    • nFileSizeHigh/Low (DWORD)
+  </text>
+  
+  <!-- FILETIME Structure -->
+  <rect x="400" y="550" width="250" height="140" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="2" rx="8"/>
+  <text x="525" y="575" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold">
+    FILETIME Structure
+  </text>
+  <text x="420" y="595" font-family="Arial, sans-serif" font-size="11">
+    • dwLowDateTime (DWORD)
+  </text>
+  <text x="420" y="615" font-family="Arial, sans-serif" font-size="11">
+    • dwHighDateTime (DWORD)
+  </text>
+  <text x="420" y="635" font-family="Arial, sans-serif" font-size="11">
+    64-bit timestamp representing
+  </text>
+  <text x="420" y="655" font-family="Arial, sans-serif" font-size="11">
+    100-nanosecond intervals since
+  </text>
+  <text x="420" y="675" font-family="Arial, sans-serif" font-size="11">
+    January 1, 1601 (UTC)
+  </text>
+  
+  <!-- Program Variables -->
+  <rect x="700" y="550" width="250" height="140" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="2" rx="8"/>
+  <text x="825" y="575" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold">
+    Program Variables
+  </text>
+  <text x="720" y="595" font-family="Arial, sans-serif" font-size="11">
+    • basePath (char*) - Target file
+  </text>
+  <text x="720" y="615" font-family="Arial, sans-serif" font-size="11">
+    • hSearch (HANDLE) - Search handle
+  </text>
+  <text x="720" y="635" font-family="Arial, sans-serif" font-size="11">
+    • OldLastAccessTime (FILETIME)
+  </text>
+  <text x="720" y="655" font-family="Arial, sans-serif" font-size="11">
+    • OldLastWriteTime (FILETIME)
+  </text>
+  <text x="720" y="675" font-family="Arial, sans-serif" font-size="11">
+    • TimeIntervalToWatchChanges = 10s
+  </text>
+  
+  <!-- Features Box -->
+  <rect x="100" y="720" width="850" height="40" fill="#2ecc71" stroke="#27ae60" stroke-width="2" rx="8"/>
+  <text x="525" y="745" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">
+    Key Features: Real-time monitoring • Cross-platform Windows API • Graceful shutdown • Change detection • Console logging
+  </text>
+</svg>
   <!-- Arrow marker definition -->
   <defs>
     <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
