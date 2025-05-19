@@ -4,7 +4,11 @@
 - **github**: https://github.com/Shriniwas18K
 - **PCCOE 2026 BTech CSE(AIML)**
 - **Passionate C++/Java/Python developer**
-  
+
+## Credits
+- thanks for guidance from https://youtu.be/9nDYYc_7sKs?feature=shared
+- Written Linux Daemon(background running service) while teaching system calls,signals, shell args, blocking I/O operations, dynamic memory management in 200 lines of code.
+
 ## Executive Summary
 
 This report presents a detailed technical analysis of the RolexHound file monitoring system, a Windows-based C application designed for continuous file surveillance and change detection. The system implements real-time monitoring capabilities using Windows API functions and provides graceful shutdown handling through signal processing.
