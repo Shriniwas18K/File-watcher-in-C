@@ -691,8 +691,8 @@
   <text x="1055" y="238" font-family="Arial, sans-serif" font-size="10" fill="#2c3e50">Interrupt Flow</text>
 </svg> 
     </div>
-    <div class="system-memory-layout">
- <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+<div class="system-memory-layout">
+    <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" style="stop-color:#1a1a2e;stop-opacity:1" />
@@ -795,7 +795,7 @@
     <text x="800" y="90" fill="#ff6b6b" font-family="Arial, sans-serif" font-size="18" font-weight="bold">Memory Architecture</text>
     
     <!-- Stack Memory -->
-    <rect x="800" y="100" width="350" height="150" rx="10" fill="url(#memoryGradient)" opacity="0.9" stroke="#11998e" stroke-width="2"/>
+    <rect x="800" y="100" width="350" height="160" rx="10" fill="url(#memoryGradient)" opacity="0.9" stroke="#11998e" stroke-width="2"/>
     <text x="975" y="120" text-anchor="middle" fill="#ffffff" font-family="Arial, sans-serif" font-size="14" font-weight="bold">STACK MEMORY</text>
     
     <!-- Stack variables -->
@@ -819,9 +819,9 @@
     <text x="1045" y="190" fill="#ffa726" font-family="monospace" font-size="11" font-weight="bold">char*</text>
     <text x="1045" y="203" fill="#cccccc" font-family="monospace" font-size="9">token (pointer)</text>
     
-    <rect x="820" y="220" width="320" height="25" rx="5" fill="#0a0a0a" stroke="#ffffff" stroke-width="1"/>
+    <rect x="820" y="220" width="320" height="30" rx="5" fill="#0a0a0a" stroke="#ffffff" stroke-width="1"/>
     <text x="825" y="235" fill="#ffa726" font-family="monospace" font-size="11" font-weight="bold">TCHAR szNewPath[MAX_PATH]</text>
-    <text x="825" y="240" fill="#cccccc" font-family="monospace" font-size="9">260 bytes buffer</text>
+    <text x="825" y="247" fill="#cccccc" font-family="monospace" font-size="9">260 bytes buffer</text>
   </g>
   
   <!-- Heap Memory -->
@@ -840,14 +840,14 @@
   
   <!-- WIN32_FIND_DATA Structure Detail -->
   <g id="struct-detail">
-    <text x="50" y="380" fill="#ff6b6b" font-family="Arial, sans-serif" font-size="18" font-weight="bold">WIN32_FILE_DATA Structure (540 bytes)</text>
+    <text x="50" y="340" fill="#ff6b6b" font-family="Arial, sans-serif" font-size="18" font-weight="bold">WIN32_FILE_DATA Structure (540 bytes)</text>
     
     <!-- Structure visualization -->
-    <rect x="50" y="350" width="700" height="280" rx="10" fill="#1a1a2e" stroke="#4a9eff" stroke-width="2"/>
+    <rect x="50" y="350" width="700" height="320" rx="10" fill="#1a1a2e" stroke="#4a9eff" stroke-width="2"/>
     
     <!-- Header -->
     <rect x="60" y="360" width="680" height="30" rx="5" fill="#2a2a4a"/>
-    <text x="400" y="378" text-anchor="middle" fill="#ffffff" font-family="Arial, sans-serif" font-size="14" font-weight="bold">typedef struct _WIN32_FIND_DATA</text>
+    <text x="400" y="378" text-anchor="middle" fill="#ffffff" font-family="Arial, sans-serif" font-size="14" font-weight="bold">typedef struct _WIN32_FILE_DATA</text>
     
     <!-- Structure members with memory addresses -->
     <g transform="translate(70, 400)">
@@ -901,8 +901,8 @@
     </g>
     
     <!-- Closing brace -->
-    <rect x="60" y="610" width="680" height="15" rx="5" fill="#2a2a4a"/>
-    <text x="70" y="620" fill="#ffffff" font-family="monospace" font-size="12">} WIN32_FIND_DATA, *LPWIN32_FIND_DATA;</text>
+    <rect x="60" y="640" width="680" height="15" rx="5" fill="#2a2a4a"/>
+    <text x="70" y="650" fill="#ffffff" font-family="monospace" font-size="12">} WIN32_FIND_DATA, *LPWIN32_FILE_DATA;</text>
   </g>
   
   <!-- Critical Algorithm Visualization -->
@@ -939,25 +939,25 @@
   
   <!-- Signal handling diagram -->
   <g id="signal-handling">
-    <text x="50" y="680" fill="#ff6b6b" font-family="Arial, sans-serif" font-size="18" font-weight="bold">Signal Handling Architecture</text>
+    <text x="50" y="690" fill="#ff6b6b" font-family="Arial, sans-serif" font-size="18" font-weight="bold">Signal Handling Architecture</text>
     
     <!-- Signal flow -->
-    <rect x="50" y="690" width="120" height="50" rx="5" fill="#4a1a4a" stroke="#ff44ff" stroke-width="2"/>
-    <text x="110" y="710" text-anchor="middle" fill="#ff44ff" font-family="Arial, sans-serif" font-size="12" font-weight="bold">SIGINT</text>
-    <text x="110" y="725" text-anchor="middle" fill="#ffffff" font-family="Arial, sans-serif" font-size="10">(Ctrl+C)</text>
+    <rect x="50" y="700" width="120" height="50" rx="5" fill="#4a1a4a" stroke="#ff44ff" stroke-width="2"/>
+    <text x="110" y="720" text-anchor="middle" fill="#ff44ff" font-family="Arial, sans-serif" font-size="12" font-weight="bold">SIGINT</text>
+    <text x="110" y="735" text-anchor="middle" fill="#ffffff" font-family="Arial, sans-serif" font-size="10">(Ctrl+C)</text>
     
     <path d="M 170 715 L 220 715" stroke="#ff44ff" stroke-width="3" marker-end="url(#arrowhead)"/>
     
-    <rect x="230" y="690" width="150" height="50" rx="5" fill="#2a2a2a" stroke="#ff44ff" stroke-width="2"/>
-    <text x="305" y="710" text-anchor="middle" fill="#ff44ff" font-family="Arial, sans-serif" font-size="12" font-weight="bold">signal()</text>
-    <text x="305" y="725" text-anchor="middle" fill="#ffffff" font-family="Arial, sans-serif" font-size="10">Registration</text>
+    <rect x="230" y="700" width="150" height="50" rx="5" fill="#2a2a2a" stroke="#ff44ff" stroke-width="2"/>
+    <text x="305" y="720" text-anchor="middle" fill="#ff44ff" font-family="Arial, sans-serif" font-size="12" font-weight="bold">signal()</text>
+    <text x="305" y="735" text-anchor="middle" fill="#ffffff" font-family="Arial, sans-serif" font-size="10">Registration</text>
     
     <path d="M 380 715 L 430 715" stroke="#ff44ff" stroke-width="3" marker-end="url(#arrowhead)"/>
     
-    <rect x="440" y="690" width="160" height="50" rx="5" fill="#2a2a2a" stroke="#ff44ff" stroke-width="2"/>
-    <text x="520" y="705" text-anchor="middle" fill="#ff44ff" font-family="Arial, sans-serif" font-size="11" font-weight="bold">INTCTRLChandler()</text>
-    <text x="520" y="720" text-anchor="middle" fill="#ffffff" font-family="Arial, sans-serif" font-size="10">Custom Handler</text>
-    <text x="520" y="730" text-anchor="middle" fill="#ffffff" font-family="Arial, sans-serif" font-size="10">User Confirmation</text>
+    <rect x="440" y="700" width="160" height="50" rx="5" fill="#2a2a2a" stroke="#ff44ff" stroke-width="2"/>
+    <text x="520" y="715" text-anchor="middle" fill="#ff44ff" font-family="Arial, sans-serif" font-size="11" font-weight="bold">INTCTRLChandler()</text>
+    <text x="520" y="730" text-anchor="middle" fill="#ffffff" font-family="Arial, sans-serif" font-size="10">Custom Handler</text>
+    <text x="520" y="740" text-anchor="middle" fill="#ffffff" font-family="Arial, sans-serif" font-size="10">User Confirmation</text>
     
     <path d="M 600 715 L 650 715" stroke="#ff44ff" stroke-width="3" marker-end="url(#arrowhead)"/>
     
@@ -981,10 +981,10 @@
   <text x="600" y="780" text-anchor="middle" fill="#888888" font-family="Arial, sans-serif" font-size="12">
     Platform: Windows | Language: C | APIs: Win32, POSIX signals | Memory: Stack + Heap | Architecture: x86/x64
   </text>
-</svg>       
-    </div>
+</svg>
+</div>
 
-    <div class="system-high-level-workflow">
+<div class="system-high-level-workflow">
         <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
   <!-- Background -->
   <rect width="1200" height="800" fill="#f8f9fa"/>
