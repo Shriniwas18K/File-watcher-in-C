@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RolexHound Technical Analysis</title>
+    <style>
+        body {
+            font-family: 'Consolas', 'Monaco', monospace;
+            background: #0a0a0a;
+            color: #e0e0e0;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            color: #00ff88;
+            text-align: center;
+            font-size: 2.5em;
+            text-shadow: 0 0 10px #00ff88;
+            margin-bottom: 30px;
+        }
+        
+        .section {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 4px 15px rgba(0, 255, 136, 0.1);
+        }
+        
+        h2 {
+            color: #ff6b6b;
+            border-bottom: 2px solid #ff6b6b;
+            padding-bottom: 10px;
+        }
+        
+        .flow-diagram {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            padding: 20px;
+        }
+        
+        .flow-box {
+            background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
+            border: 2px solid #4a9eff;
+            border-radius: 12px;
+            padding: 15px 25px;
+            text-align: center;
+            position: relative;
+            min-width: 250px;
+            box-shadow: 0 0 15px rgba(74, 158, 255, 0.3);
+        }
+        
+        .flow-box.critical {
+            border-color: #ff4757;
+            box-shadow: 0 0 15px rgba(255, 71, 87, 0.3);
+        }
+        
+        .flow-box.success {
+            border-color: #00ff88;
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
+        }
+        
+        .arrow {
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-top: 30px solid #4a9eff;
+            margin: 10px auto;
+        }
+        
+        .arrow.loop {
+            border-top-color: #ff6b6b;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+        
+        .memory-diagram {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+        
+        .memory-block {
+            background: #2a2a2a;
+            border: 2px solid #ffa726;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+        }
+        
+        .memory-title {
+            color: #ffa726;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .memory-details {
+            font-size: 0.9em;
+            color: #ccc;
+        }
+        
+        .api-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+            padding: 20px;
+        }
+        
+        .api-card {
+            background: linear-gradient(135deg, #1e3a8a, #1e40af);
+            border-left: 4px solid #60a5fa;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        .api-title {
+            color: #60a5fa;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        
+        .api-description {
+            color: #e0e7ff;
+            font-size: 0.9em;
+        }
+        
+        .struct-visualization {
+            background: #2a1810;
+            border: 2px solid #ff9500;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .struct-member {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 15px;
+            margin: 5px 0;
+            background: #3a2820;
+            border-radius: 5px;
+            border-left: 3px solid #ff9500;
+        }
+        
+        .member-type {
+            color: #ff9500;
+            font-weight: bold;
+        }
+        
+        .member-name {
+            color: #fff;
+        }
+        
+        .member-description {
+            color: #ccc;
+            font-size: 0.8em;
+        }
+        
+        .timeline {
+            position: relative;
+            padding: 20px;
+        }
+        
+        .timeline-event {
+            position: relative;
+            padding: 15px 30px;
+            background: #2a2a2a;
+            border-left: 4px solid #00ff88;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .timeline-event:before {
+            content: '';
+            position: absolute;
+            left: -8px;
+            top: 20px;
+            width: 12px;
+            height: 12px;
+            background: #00ff88;
+            border-radius: 50%;
+        }
+        
+        .event-title {
+            color: #00ff88;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .event-description {
+            color: #ccc;
+            font-size: 0.9em;
+        }
+        
+        .signal-flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 20px;
+        }
+        
+        .signal-box {
+            background: #4a1a4a;
+            border: 2px solid #ff44ff;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            min-width: 120px;
+            box-shadow: 0 0 10px rgba(255, 68, 255, 0.3);
+        }
+        
+        .signal-arrow {
+            color: #ff44ff;
+            font-size: 2em;
+            margin: 0 10px;
+        }
+        
+        .code-annotation {
+            background: #1a1a2e;
+            border: 1px solid #16213e;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .line-number {
+            color: #666;
+            margin-right: 15px;
+        }
+        
+        .comment {
+            color: #7dd3fc;
+            font-style: italic;
+        }
+        
+        .keyword {
+            color: #f472b6;
+            font-weight: bold;
+        }
+        
+        .datatype {
+            color: #34d399;
+        }
+        
+        .function {
+            color: #fbbf24;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🕰️ RolexHound Technical Deep Dive</h1>
+        
+        <div class="section">
+            <h2>🔍 Program Architecture Overview</h2>
+            <div class="flow-diagram">
+                <div class="flow-box">
+                    <strong>Program Initialization</strong><br>
+                    Parse command line arguments<br>
+                    Extract filename from path
+                </div>
+                <div class="arrow"></div>
+                <div class="flow-box critical">
+                    <strong>Signal Handler Setup</strong><br>
+                    Register SIGINT (Ctrl+C) handler<br>
+                    Graceful shutdown mechanism
+                </div>
+                <div class="arrow"></div>
+                <div class="flow-box success">
+                    <strong>Main Monitoring Loop</strong><br>
+                    Infinite loop for continuous monitoring<br>
+                    File attribute checking every 10 seconds
+                </div>
+                <div class="arrow loop"></div>
+                <div class="flow-box">
+                    <strong>File System Interaction</strong><br>
+                    FindFirstFile API call<br>
+                    WIN32_FIND_DATA structure analysis
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🧠 Memory Management & Data Structures</h2>
+            <div class="memory-diagram">
+                <div class="memory-block">
+                    <div class="memory-title">Dynamic Allocation</div>
+                    <div class="memory-details">
+                        <strong>basePath</strong> - malloc()<br>
+                        Size: strlen(argv[1]) + 1<br>
+                        Purpose: Store extracted filename
+                    </div>
+                </div>
+                <div class="memory-block">
+                    <div class="memory-title">Stack Variables</div>
+                    <div class="memory-details">
+                        <strong>FileData</strong> - WIN32_FIND_DATA<br>
+                        <strong>OldLastAccessTime</strong> - FILETIME<br>
+                        <strong>OldLastWriteTime</strong> - FILETIME
+                    </div>
+                </div>
+                <div class="memory-block">
+                    <div class="memory-title">Windows Handles</div>
+                    <div class="memory-details">
+                        <strong>hSearch</strong> - HANDLE<br>
+                        Return from FindFirstFile<br>
+                        Invalid: INVALID_HANDLE_VALUE
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🔧 Windows API Integration</h2>
+            <div class="api-grid">
+                <div class="api-card">
+                    <div class="api-title">FindFirstFile()</div>
+                    <div class="api-description">
+                        Searches for file/directory matching specified name.<br>
+                        Returns HANDLE for iteration through matching files.<br>
+                        <strong>Parameters:</strong> filename, WIN32_FIND_DATA*
+                    </div>
+                </div>
+                <div class="api-card">
+                    <div class="api-title">GetFileAttributes()</div>
+                    <div class="api-description">
+                        Retrieves file system attributes for specified file.<br>
+                        Returns DWORD containing attribute flags.<br>
+                        <strong>Used for:</strong> File existence validation
+                    </div>
+                </div>
+                <div class="api-card">
+                    <div class="api-title">Signal Handling</div>
+                    <div class="api-description">
+                        POSIX signal() function for SIGINT capture.<br>
+                        Custom handler for graceful shutdown.<br>
+                        <strong>Behavior:</strong> Prompt user before exit
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📊 WIN32_FIND_DATA Structure Breakdown</h2>
+            <div class="struct-visualization">
+                <h3 style="color: #ff9500; margin-bottom: 15px;">struct WIN32_FIND_DATA</h3>
+                <div class="struct-member">
+                    <span class="member-type">DWORD</span>
+                    <span class="member-name">dwFileAttributes</span>
+                    <span class="member-description">File attributes (hidden, system, etc.)</span>
+                </div>
+                <div class="struct-member">
+                    <span class="member-type">FILETIME</span>
+                    <span class="member-name">ftCreationTime</span>
+                    <span class="member-description">File creation timestamp</span>
+                </div>
+                <div class="struct-member" style="border-left-color: #00ff88;">
+                    <span class="member-type">FILETIME</span>
+                    <span class="member-name">ftLastAccessTime</span>
+                    <span class="member-description">Last access time (monitored)</span>
+                </div>
+                <div class="struct-member" style="border-left-color: #00ff88;">
+                    <span class="member-type">FILETIME</span>
+                    <span class="member-name">ftLastWriteTime</span>
+                    <span class="member-description">Last write time (monitored)</span>
+                </div>
+                <div class="struct-member">
+                    <span class="member-type">DWORD</span>
+                    <span class="member-name">nFileSizeHigh</span>
+                    <span class="member-description">High-order file size (64-bit)</span>
+                </div>
+                <div class="struct-member">
+                    <span class="member-type">DWORD</span>
+                    <span class="member-name">nFileSizeLow</span>
+                    <span class="member-description">Low-order file size (64-bit)</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>⏱️ Execution Timeline</h2>
+            <div class="timeline">
+                <div class="timeline-event">
+                    <div class="event-title">T0: Program Start</div>
+                    <div class="event-description">Parse arguments, allocate memory for basePath</div>
+                </div>
+                <div class="timeline-event">
+                    <div class="event-title">T1: Path Processing</div>
+                    <div class="event-description">Extract filename using strtok() with '/' delimiter</div>
+                </div>
+                <div class="timeline-event">
+                    <div class="event-title">T2: Signal Registration</div>
+                    <div class="event-description">Register SIGINT handler for Ctrl+C interception</div>
+                </div>
+                <div class="timeline-event">
+                    <div class="event-title">T3: Monitoring Loop</div>
+                    <div class="event-description">Enter infinite loop, call FindFirstFile()</div>
+                </div>
+                <div class="timeline-event">
+                    <div class="event-title">T4+: Change Detection</div>
+                    <div class="event-description">Compare FILETIME structures, detect modifications</div>
+                </div>
+                <div class="timeline-event">
+                    <div class="event-title">T∞: Sleep Cycle</div>
+                    <div class="event-description">10-second intervals between checks</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🚨 Signal Handling Flow</h2>
+            <div class="signal-flow">
+                <div class="signal-box">
+                    <strong>SIGINT</strong><br>
+                    (Ctrl+C)
+                </div>
+                <div class="signal-arrow">→</div>
+                <div class="signal-box">
+                    <strong>Handler</strong><br>
+                    INTCTRLChandler()
+                </div>
+                <div class="signal-arrow">→</div>
+                <div class="signal-box">
+                    <strong>Ignore</strong><br>
+                    SIG_IGN
+                </div>
+                <div class="signal-arrow">→</div>
+                <div class="signal-box">
+                    <strong>Prompt</strong><br>
+                    User Choice
+                </div>
+                <div class="signal-arrow">→</div>
+                <div class="signal-box">
+                    <strong>Exit/Continue</strong><br>
+                    Decision
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🔍 Code Quality Analysis</h2>
+            <div class="code-annotation">
+                <span class="line-number">23:</span>
+                <span class="comment">// All variables declared at top - C89/C90 compliance</span><br>
+                <span class="line-number">42:</span>
+                <span class="keyword">char</span> <span class="datatype">*</span>basePath=<span class="keyword">NULL</span>;<br>
+                <span class="line-number">75:</span>
+                <span class="comment">// Dynamic memory allocation with bounds checking</span><br>
+                <span class="line-number">76:</span>
+                basePath=(<span class="datatype">char</span>*)<span class="function">malloc</span>(<span class="keyword">sizeof</span>(<span class="datatype">char</span>)*(<span class="function">strlen</span>(argv[1])+1));<br>
+                <span class="line-number">89:</span>
+                <span class="comment">// Tokenization for cross-platform path handling</span><br>
+                <span class="line-number">90:</span>
+                token=<span class="function">strtok</span>(basePath,<span class="keyword">"/"</span>);
+            </div>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">
+                <div style="background: #0f2027; border: 1px solid #2c5364; border-radius: 8px; padding: 15px;">
+                    <h3 style="color: #00ff88;">✅ Strengths</h3>
+                    <ul style="color: #ccc;">
+                        <li>Windows API expertise demonstrated</li>
+                        <li>Proper signal handling implementation</li>
+                        <li>Memory allocation with size calculation</li>
+                        <li>Clear separation of concerns</li>
+                        <li>Comprehensive error handling</li>
+                    </ul>
+                </div>
+                <div style="background: #2d1b20; border: 1px solid #5d2e36; border-radius: 8px; padding: 15px;">
+                    <h3 style="color: #ff6b6b;">⚠️ Areas for Improvement</h3>
+                    <ul style="color: #ccc;">
+                        <li>Memory leak: malloc() without free()</li>
+                        <li>Platform-specific (Windows only)</li>
+                        <li>Hard-coded 10-second interval</li>
+                        <li>Limited error messages</li>
+                        <li>No file handle cleanup</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🔬 Technical Complexity Metrics</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                <div style="background: linear-gradient(135deg, #1a237e, #3949ab); padding: 20px; border-radius: 10px; text-align: center;">
+                    <h3 style="color: #fff; margin: 0;">Cyclomatic Complexity</h3>
+                    <div style="font-size: 3em; color: #ffeb3b; font-weight: bold;">7</div>
+                    <p style="color: #e8eaf6; margin: 5px 0;">Moderate complexity with multiple decision points</p>
+                </div>
+                <div style="background: linear-gradient(135deg, #b71c1c, #d32f2f); padding: 20px; border-radius: 10px; text-align: center;">
+                    <h3 style="color: #fff; margin: 0;">Lines of Code</h3>
+                    <div style="font-size: 3em; color: #ffcdd2; font-weight: bold;">125</div>
+                    <p style="color: #ffebee; margin: 5px 0;">Compact implementation with focused functionality</p>
+                </div>
+                <div style="background: linear-gradient(135deg, #1b5e20, #388e3c); padding: 20px; border-radius: 10px; text-align: center;">
+                    <h3 style="color: #fff; margin: 0;">API Dependencies</h3>
+                    <div style="font-size: 3em; color: #c8e6c9; font-weight: bold;">8</div>
+                    <p style="color: #e8f5e9; margin: 5px 0;">Windows API + POSIX signal functions</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add some interactive elements
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate the flow arrows
+            const arrows = document.querySelectorAll('.arrow');
+            arrows.forEach((arrow, index) => {
+                arrow.style.animationDelay = `${index * 0.5}s`;
+            });
+            
+            // Make API cards interactive
+            const apiCards = document.querySelectorAll('.api-card');
+            apiCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px)';
+                    this.style.boxShadow = '0 8px 25px rgba(96, 165, 250, 0.3)';
+                    this.style.transition = 'all 0.3s ease';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                    this.style.boxShadow = '0 4px 10px rgba(0, 0, 0, 0.3)';
+                });
+            });
+            
+            // Add hover effects to struct members
+            const structMembers = document.querySelectorAll('.struct-member');
+            structMembers.forEach(member => {
+                member.addEventListener('mouseenter', function() {
+                    this.style.backgroundColor = '#4a3830';
+                    this.style.transition = 'background-color 0.3s ease';
+                });
+                
+                member.addEventListener('mouseleave', function() {
+                    this.style.backgroundColor = '#3a2820';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
